@@ -1,8 +1,40 @@
-<html>
+<html ng-app="oxo">
 <head>
   <title>OXO</title>
-  <style type="text/css"></style>
-<body>
+  <style type="text/css">
+    td {
+      cursor:pointer;
+      width:50px;
+      height:50px;
+      border:solid black 1px;
+    }
+  </style>
+<body ng-controller="OxoController">
+  <article>
+    <header>
+      <h1>OXO</h1>
+    </header>
+    <table>
+      <tr ng-repeat="row in board">
+        <td ng-repeat="cell in row" ng-click="pickCell(cell)">
+          <span ng-if="cell.player === 0">O</span>
+          <span ng-if="cell.player === 1">X</span>
+        </td>
+      </tr>
+    </table>
+    <footer>
+      <div ng-show="!hasWon">
+        <h2 ng-show="noWinner">DRAW!</h2>
+        <h2 ng-show="!noWinner && currentTurn === 0">Your turn!</h2>
+        <h2 ng-show="!noWinner && currentTurn === 1">Thinking...</h2>
+      </div>
+      <div ng-show="hasWon">
+        <h2 ng-show="currentTurn === 0">You win!</h2>
+        <h2 ng-show="currentTurn === 1">I won!</h2>
+      </div>
+      <a href="#" ng-click="newGame()">New game</a>
+    </footer>
+  <script src="bower_components/angular/angular.min.js"></script>
   <script src="client/app.js"></script>
 </body>
 </html>
