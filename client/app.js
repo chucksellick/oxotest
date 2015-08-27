@@ -52,9 +52,8 @@ app.controller("OxoController", function($scope,$timeout) {
           var testBoard = copyBoard($scope.board);
           var testCell = cells[n];
           testBoard[testCell.y][testCell.x].player = 1;
-          console.log(testBoard);
           if (checkWinningCondition(testBoard,1)){
-            // Block the player
+            // Win the game
             setCell(testCell);
             return;
           }
@@ -65,7 +64,6 @@ app.controller("OxoController", function($scope,$timeout) {
           var testBoard = copyBoard($scope.board);
           var testCell = cells[n];
           testBoard[testCell.y][testCell.x].player = 0;
-          console.log(testBoard);
           if (checkWinningCondition(testBoard,0)){
             // Block the player
             setCell(testCell);
@@ -84,7 +82,7 @@ app.controller("OxoController", function($scope,$timeout) {
       for (var n=0;n<3;n++) {
         copy.push([]);
         for (var m=0;m<3;m++){
-          copy[n].push({ x:m, y:n, player:board[n][m].players });
+          copy[n].push({ x:m, y:n, player:board[n][m].player });
         }
       }
       return copy;
