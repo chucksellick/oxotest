@@ -47,13 +47,31 @@ app.controller("OxoController", function($scope,$timeout) {
       $timeout(function(){
         var cells = checkAvailableCells($scope.board);
 
-        // Is player about to win? - check each available cell
-        /*
+        // Am I about to win? - check each available cell
         for (var n=0; n<cells.length; n++) {
           var testBoard = copyBoard($scope.board);
           var testCell = cells[n];
-          testBoard[testCell.y][testCell.x]
-        }*/
+          testBoard[testCell.y][testCell.x].player = 1;
+          console.log(testBoard);
+          if (checkWinningCondition(testBoard,1)){
+            // Block the player
+            setCell(testCell);
+            return;
+          }
+        }
+
+        // Is player about to win? - check each available cell
+        for (var n=0; n<cells.length; n++) {
+          var testBoard = copyBoard($scope.board);
+          var testCell = cells[n];
+          testBoard[testCell.y][testCell.x].player = 0;
+          console.log(testBoard);
+          if (checkWinningCondition(testBoard,0)){
+            // Block the player
+            setCell(testCell);
+            return;
+          }
+        }
 
         var picked = Math.floor(Math.random() * cells.length);
         setCell(cells[picked]);
